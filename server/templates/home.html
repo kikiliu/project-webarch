@@ -1,13 +1,49 @@
 <!DOCTYPE html>
 <html lang="en-us">
-	<head>
-		<meta charset="utf-8">
-		<title>{{ title }}</title>
-		<link rel="stylesheet" href="static/css/default.css">
-	</head>
-	<body>
-		<div class="container">
-			Hello {{ name }}
-		</div>
-	</body>
+<head>
+    <meta charset="utf-8">
+    <title>Petite URL</title>
+    <link rel="stylesheet" href="static/css/default.css">
+</head>
+<body>
+    <!--could be used for optimizing background etc.-->
+    <div class="container">
+        <div class="logo">
+        </div>
+        <!--for the form-->
+        <form method="post" action="shorts">
+            <div class="shortner-wrapper">
+
+                <label>
+                    <!--Keep the name "url"-->
+                    <input type="url" id="long_url" name="url" />
+                </label>
+                <label>
+                    <!--Don't add name attribute-->
+                    <input type="submit" id="submit_button" value="Submit" />
+                </label>
+                <div>
+                    <div>
+                        Custom your own petite url (Optional)
+                    </div>
+                    <label>
+                        http://people.ischool.berkeley.edu/~username/server/short/
+                    <input type="text" id="alias" name="alias" />
+                    </label>
+                    <div>Letters only</div>
+                </div>
+
+            </div>
+            <!--this is for test only. pls changed the style attr to css-->
+            <div class="output" style="display:none">
+                <label>
+                    Here is your petite url<span id="short_url"></span>
+                    <!--onclick could be re-named-->
+                    <input type="button" onclick="CopyToClipboard()" value="Copy to clipboard" />
+                </label>
+            </div>
+        </form>
+    </div>
+
+</body>
 </html>
