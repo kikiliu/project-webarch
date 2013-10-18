@@ -50,18 +50,16 @@ def wiki_put():
     return "Stored wiki => " + wikipedia
 
 
-@app.route("/short", methods=['PUT', 'POST'])
-def short_post():
+@app.route("/shorts", methods=['PUT', 'POST'])
+def shorts_post():
     """Set or update the URL to which this resource redirects to. Uses the
     `url` key to set the redirect destination."""
     url = request.form.get('url', 'http://www.google.com')
     alias1 = request.form.get('alias', 'google')
     alias = alias1.encode('ascii','ignore')
     db[alias] = url
-#    return "Stored " + alias + " => " + url
-
     return flask.render_template(
-            'short.html',
+            'shorts.html',
             alias=alias,
             url=url)
 
