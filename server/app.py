@@ -55,20 +55,8 @@ def short_post():
     """Set or update the URL to which this resource redirects to. Uses the
     `url` key to set the redirect destination."""
     url = request.form.get('url', 'http://www.google.com')
-##    url = 'google.com'
     alias1 = request.form.get('alias', 'google')
-    print("Display alias1 type")
-    print(type(alias1))
     alias = alias1.encode('ascii','ignore')
-    print("Display alias type")
-    print(type(alias))
-
-    print("Display Request.data")
-    print(request.data)
-    print("Display alias")
-    print(alias)
-    print("Display app.logger.debug")
-    app.logger.debug
     db[alias] = url
     return "Stored " + alias + " => " + url
 
