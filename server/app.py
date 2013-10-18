@@ -63,7 +63,13 @@ def shorts_post():
             alias=alias,
             url=url)
 
-
+@app.route('/short/<alias>', methods=['GET'])
+def short_get(alias):
+    """Redirects to original url."""
+    alias = alias.encode('ascii','ignore')
+    destination = db.get(alias, 'http://en.wikipedia.org')
+    app.logger.debug("Redirecting to " + destination)
+    return flask.redirect(destination)
 
 
 
