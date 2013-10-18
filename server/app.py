@@ -33,6 +33,7 @@ def home():
 # GET method will redirect to the resource stored by PUT, by default: Wikipedia.org
 # POST/PUT method will update the redirect destination
 ###
+
 @app.route('/wiki', methods=['GET'])
 def wiki_get():
     """Redirects to wikipedia."""
@@ -47,6 +48,29 @@ def wiki_put():
     wikipedia = request.form.get('url', 'http://en.wikipedia.org')
     db['wiki'] = wikipedia
     return "Stored wiki => " + wikipedia
+
+
+@app.route("/short", methods=['PUT', 'POST'])
+def short_post():
+    """Set or update the URL to which this resource redirects to. Uses the
+    `url` key to set the redirect destination."""
+    url = request.form.get('url', 'http://www.google.com')
+##    url = 'google.com'
+    alias1 = request.form.get('alias', 'google')
+    print("Display alias1 type")
+    print(type(alias1))
+    alias = alias1.encode('ascii','ignore')
+    print("Display alias type")
+    print(type(alias))
+
+    print("Display Request.data")
+    print(request.data)
+    print("Display alias")
+    print(alias)
+    print("Display app.logger.debug")
+    app.logger.debug
+    db[alias] = url
+    return "Stored " + alias + " => " + url
 
 ###
 # i253 Resource:
