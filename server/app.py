@@ -33,20 +33,47 @@ def home():
 # GET method will redirect to the resource stored by PUT, by default: Wikipedia.org
 # POST/PUT method will update the redirect destination
 ###
-@app.route('/wiki', methods=['GET'])
-def wiki_get():
-    """Redirects to wikipedia."""
-    destination = db.get('wiki', 'http://en.wikipedia.org')
-    app.logger.debug("Redirecting to " + destination)
-    return flask.redirect(destination)
 
-@app.route("/wiki", methods=['PUT', 'POST'])
-def wiki_put():
+#@app.route('/wiki', methods=['GET'])
+#def wiki_get():
+#    """Redirects to wikipedia."""
+#    destination = db.get('wiki', 'http://en.wikipedia.org')
+#    app.logger.debug("Redirecting to " + destination)
+#    return flask.redirect(destination)
+
+#@app.route("/wiki", methods=['PUT', 'POST'])
+#def wiki_put():
+#    """Set or update the URL to which this resource redirects to. Uses the
+#    `url` key to set the redirect destination."""
+#    wikipedia = request.form.get('url', 'http://en.wikipedia.org')
+#    db['wiki'] = wikipedia
+#    return "Stored wiki => " + wikipedia
+
+
+@app.route("/shorts", methods=['PUT', 'POST'])
+def shorts_post():
     """Set or update the URL to which this resource redirects to. Uses the
     `url` key to set the redirect destination."""
-    wikipedia = request.form.get('url', 'http://en.wikipedia.org')
-    db['wiki'] = wikipedia
-    return "Stored wiki => " + wikipedia
+    url = request.form.get('url', 'http://www.google.com')
+    alias1 = request.form.get('alias', 'google')
+    alias = alias1.encode('ascii','ignore')
+    db[alias] = url
+    return flask.render_template(
+            'shorts.html',
+            alias=alias,
+            url=url)
+
+@app.route('/short/<alias>', methods=['GET'])
+def short_get(alias):
+    """Redirects to original url."""
+    alias = alias.encode('ascii','ignore')
+    destination = db.get(alias)
+    if destination:
+        app.logger.debug("Redirecting to " + destination)
+        return flask.redirect(destination)
+    else:
+        return flask.render_template('page_not_found.html'), 404
+
 
 ###
 # i253 Resource:
