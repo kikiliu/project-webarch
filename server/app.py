@@ -67,10 +67,12 @@ def shorts_post():
 def short_get(alias):
     """Redirects to original url."""
     alias = alias.encode('ascii','ignore')
-    destination = db.get(alias, 'http://en.wikipedia.org')
-    app.logger.debug("Redirecting to " + destination)
-    return flask.redirect(destination)
-
+    destination = db.get(alias)
+    if destination:
+        app.logger.debug("Redirecting to " + destination)
+        return flask.redirect(destination)
+    else:
+        return flask.render_template('page_not_found.html'), 404
 
 
 ###
