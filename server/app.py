@@ -58,7 +58,16 @@ def short_post():
     alias1 = request.form.get('alias', 'google')
     alias = alias1.encode('ascii','ignore')
     db[alias] = url
-    return "Stored " + alias + " => " + url
+#    return "Stored " + alias + " => " + url
+
+    return flask.render_template(
+            'short.html',
+            alias=alias,
+            url=url)
+
+
+
+
 
 ###
 # i253 Resource:
