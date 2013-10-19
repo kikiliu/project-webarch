@@ -16,16 +16,17 @@ db = shelve.open("shorten.db")
 # Home Resource:
 # Only supports the GET method, returns a homepage represented as HTML
 ###
-#@app.route('/home', methods=['GET'])
-#def home():
-#    """Builds a template based on a GET request, with some default
-#    arguements"""
-#    index_title = request.args.get("title", "i253")
-#    hello_name = request.args.get("name", "Jim")
-#    return flask.render_template(
-#            'home.html',
-#            title=index_title,
-#            name=hello_name)
+@app.route('/home', methods=['GET'])
+def home():
+    """Builds a template based on a GET request, with some default
+    arguements"""
+    index_title = request.args.get("title", "i253")
+    hello_name = request.args.get("name", "Jim")
+    return flask.render_template(
+            'home.html',
+            title=index_title,
+            name=hello_name,
+            display_style='display:none')
 
 ###
 # Wiki Resource:
@@ -57,9 +58,11 @@ def shorts_post():
     alias1 = request.form.get('alias', 'google')
     alias = alias1.encode('ascii','ignore')
     db[alias] = url
+    print('alias = ' + alias + ' url = ' + url)
     return flask.render_template(
         'home.html',
-        alias=alias)
+        alias=alias,
+        display_style='')
 
 #    return flask.render_template(
 #            'shorts.html',
