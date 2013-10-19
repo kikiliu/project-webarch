@@ -23,7 +23,7 @@ def home():
     index_title = request.args.get("title", "i253")
     hello_name = request.args.get("name", "Jim")
     return flask.render_template(
-            'home.html',
+           'home.html',
             title=index_title,
             name=hello_name,
             display_style='display:none')
