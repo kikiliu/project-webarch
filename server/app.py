@@ -27,7 +27,7 @@ def home():
             title=index_title,
             name=hello_name)
 
-
+
 ###
 # Wiki Resource:
 # GET method will redirect to the resource stored by PUT, by default: Wikipedia.org
