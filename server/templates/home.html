@@ -49,7 +49,7 @@
 </div>
 
     <div class="container">
-        <form class="form-signin">
+        <form class="form-signin" method="post" actions="shorts">
             <h2 class="form-signin-heading">Meet Your Petite URL!</h2>
             <input type="text" class="input-block-level" id = "url" name = "url" placeholder="Please paste your url">
             <input type="text" class="input-block-level" id = "alias" name = "alias" placeholder="Give it a name.">
@@ -59,8 +59,16 @@
                   </input>
                 </div>
             </div>
-        </form>
 
+            <div class="form-signin" style="{{display_style}}">
+                <label>
+                    Here is your petite url:
+                    <span id="short_url">http://people.ischool.berkeley.edu/~shaohan/server/short/{{alias}}</span>
+                    <!--onclick could be re-named-->
+                    <input type="button" onclick="CopyToClipboard()" value="Copy to clipboard" />
+                </label>
+            </div>
+        </form>
     </div>
 
 </body>
