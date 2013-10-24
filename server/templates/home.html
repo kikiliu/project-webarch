@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,8 @@
     <title>Petite &middot; URL shortener</title>
     <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Ravul Verma">
     <!--styles -->
-    <link href="{{ url_for('static', filename='_css/bootstrap.css') }}" rel="stylesheet">
+
+    <link href="static/css/bootstrap.css" rel="stylesheet">
     <style type="text/css">
       body {
         padding-top: 100px;
@@ -60,10 +62,10 @@
                 </div>
             </div>
 
-            <div class="form-signin" style="{{display_style}}">
+            <div class="form-signin" style="display:none">
                 <label>
                     Here is your petite url:
-                    <span id="short_url">http://people.ischool.berkeley.edu/~shaohan/server/short/{{alias}}</span>
+                    <span id="short_url">http://people.ischool.berkeley.edu/~shaohan/server/short/</span>
                     <!--onclick could be re-named-->
                     <input type="button" onclick="CopyToClipboard()" value="Copy to clipboard" />
                 </label>
