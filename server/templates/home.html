@@ -1,49 +1,66 @@
 <!DOCTYPE html>
-<html lang="en-us">
+<html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Petite URL</title>
-    <link rel="stylesheet" href="static/css/default.css">
+    <title>Petite &middot; URL shortener</title>
+    <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Ravul Verma">
+    <!--styles -->
+    <link href="bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 100px;
+        padding-bottom: 40px;
+        background-color: #cdecd8;
+      }
+
+      .form-signin {
+        max-width: 300px;
+        padding: 19px 29px 29px;
+        margin: 0 auto 20px;
+        background-color: #fff;
+        border: 1px solid #e5e5e5;
+        -webkit-border-radius: 5px;
+           -moz-border-radius: 5px;
+                border-radius: 5px;
+        -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+           -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
+                box-shadow: 0 1px 2px rgba(0,0,0,.05);
+      }
+      .form-signin .form-signin-heading,
+      .form-signin .checkbox {
+        margin-bottom: 10px;
+      }
+      .form-signin input[type="text"],{
+        font-size: 16px;
+        height: auto;
+        margin-bottom: 15px;
+        padding: 7px 9px;
+      }
+    </style>
 </head>
+
 <body>
-    <!--could be used for optimizing background etc.-->
-    <div class="container">
-        <div class="logo">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="brand">Petite</a>
         </div>
-        <!--for the form-->
-        <form method="post" action="shorts">
-            <div class="shortner-wrapper">
+    </div>
+</div>
 
-                <label>
-                    <!--Keep the name "url"-->
-                    <input type="url" id="url" name="url" />
-                </label>
-                <label>
-                    <!--Don't add name attribute-->
-                    <input type="submit" id="submit_button" value="Submit" />
-                </label>
-                <div>
-                    <div>
-                        Custom your own petite url (Optional)
-                    </div>
-                    <label>
-                        http://people.ischool.berkeley.edu/~username/server/short/
-                    <input type="text" id="alias" name="alias" />
-                    </label>
-                    <div>Letters only</div>
+    <div class="container">
+        <form class="form-signin">
+            <h2 class="form-signin-heading">Meet Your Petite URL!</h2>
+            <input type="text" class="input-block-level" id = "long_url" name = "url" placeholder="Please paste your url">
+            <input type="text" class="input-block-level" id = "alias" name = "alias" placeholder="Give it a name.">
+            <div class="row-fluid">
+                <div class="offset4">
+                    <button class="btn btn-large btn-primary" type="submit">Submit</button>
+                  </input>
                 </div>
-
-            </div>
-            <!--this is for test only. pls changed the style attr to css-->
-            <div class="output" style="{{display_style}}">
-                <label>
-                    Here is your petite url:
-		    <span id="short_url">http://people.ischool.berkeley.edu/~shaohan/server/short/{{alias}}</span>
-                    <!--onclick could be re-named-->
-                    <input type="button" onclick="CopyToClipboard()" value="Copy to clipboard" />
-                </label>
             </div>
         </form>
+
     </div>
 
 </body>
