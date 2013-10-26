@@ -6,8 +6,9 @@
     <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Ravul Verma">
     <!--styles -->
 
-    <link href="bootstrap.css" rel="stylesheet">
-    <link href="style.css" rel="stylesheet">
+    <link href="{{ 'static/css/bootstrap.css' }}" rel="stylesheet">
+    <link href="{{ 'static/css/style.css' }}" rel="stylesheet">
+
 </head>
 
 <body>
@@ -20,7 +21,7 @@
 </div>
 
     <div class="container">
-        <form class="form-signin" method="post" action="./Petite · URL shortener_files/Petite · URL shortener.htm">
+        <form class="form-signin" method="post" action="shorts">
             <h2 class="form-signin-heading">Meet Your Petite URL!</h2>
             <input type="text" class="input-block-level" id="url" name="url" placeholder="Please paste your url">
             <input type="text" class="input-block-level" id="alias" name="alias" placeholder="Give it a name.">
@@ -34,7 +35,7 @@
     <div class="container">
         <div class="form-signin">
             <h2 class="form-signin-heading">Here Is Your Petite URL!</h2>
-                <span type="text" id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~shaohan/server/short/today</span>
+                <span type="text" id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~shaohan/server/short/</span>
                 <input type="button" class="btn btn-small btn-primary" id="copybutton" onclick="CopyToClipboard()" value="Copy to clipboard">
         </div>
     </div>
