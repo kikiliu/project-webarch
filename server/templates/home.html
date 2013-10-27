@@ -3,10 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>Petite &middot; URL shortener</title>
-    <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Ravul Verma">
+    <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Rahul Verma">
     <!--styles -->
 
-    <link href="{{ 'static/css/bootstrap.css' }}" rel="stylesheet">
+    <link href="{{'bootstrap.css'}}" rel="stylesheet"> 
     <style type="text/css">
       body {
         padding-top: 100px;
@@ -50,9 +50,9 @@
 </div>
 
     <div class="container">
-        <form class="form-signin" method="post" action="shorts">
+        <form class="form-signin" method="post" action="shorts" onsubmit="return(form_validation());">
             <h2 class="form-signin-heading">Meet Your Petite URL!</h2>
-            <input type="text" class="input-block-level" id = "url" name = "url" placeholder="Please paste your url">
+            <input type="url" class="input-block-level" id = "url" name = "url" placeholder="Please paste your url">
             <input type="text" class="input-block-level" id = "alias" name = "alias" placeholder="Give it a name.">
             <div class="row-fluid">
                 <div class="offset4">
@@ -64,13 +64,14 @@
             <div class="form-signin" style="{{display_style}}">
                 <label>
                     Here is your petite url:
-                    <span id="short_url">http://people.ischool.berkeley.edu/~shaohan/server/short/{{alias}}</span>
+                    <textarea id="short_url">http://people.ischool.berkeley.edu/~shaohan/server/short/{{alias}}</textarea>
                     <!--onclick could be re-named-->
-                    <input type="button" onclick="CopyToClipboard()" value="Copy to clipboard" />
                 </label>
-            </div>
+		<input type="button" id="copyText" data-clipboard-target="short_url" value="Copy to clipboard" />            
+	</div>
         </form>
     </div>
-
+    <script type="text/javascript" src="ZeroClipboard.js"></script>
+    <script type="text/javascript" src="formValidation.js"></script>
 </body>
 </html>
