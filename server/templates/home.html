@@ -1,24 +1,25 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <!-- saved from url=(0057)http://people.ischool.berkeley.edu/~shaohan/server/shorts -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title>Petite · URL shortener</title>
-    <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Ravul Verma">
+    <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Rahul Verma">
     <!--styles -->
 
-    <link href="{{ 'static/css/bootstrap.css' }}" rel="stylesheet">
-    <link href="{{ 'static/css/style.css' }}" rel="stylesheet">
-
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="brand">Petite</a>
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand">Petite</a>
+            </div>
         </div>
     </div>
-</div>
 
     <div class="container">
         <form class="form-signin" method="post" action="shorts">
@@ -35,10 +36,13 @@
     <div class="container">
         <div class="form-signin" style="{{display_style}}">
             <h2 class="form-signin-heading">Here Is Your Petite URL!</h2>
-                <span type="text" id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~shaohan/server/short/{{alias}}</span>
-                <input type="button" class="btn btn-small btn-primary" id="copybutton" onclick="CopyToClipboard()" value="Copy to clipboard">
+            <textarea id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~shaohan/server/short/{{alias}}</textarea>
+            <input type="button" class="btn btn-small btn-primary" id="copybutton" data-clipboard-target="short_url" value="Copy to clipboard">
         </div>
     </div>
+    <script type="text/javascript" src="static/js/ZeroClipboard.js"></script>
+    <script type="text/javascript" src="static/js/formValidation.js"></script>
 
 
-</body></html>
+</body>
+</html>
