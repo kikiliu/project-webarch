@@ -1,7 +1,7 @@
 
 //main.js
 var clip = new ZeroClipboard(document.getElementById("copybutton"), {
-    moviePath: "../static/js/ZeroClipboard.swf"
+    moviePath: "static/js/ZeroClipboard.swf"
 });
 
 clip.on("load", function (client) {
