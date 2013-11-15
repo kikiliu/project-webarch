@@ -1,0 +1,20 @@
+Team members: Shaohan Chen, Rahul Verma, Sophia Lay, Qi Liu(Kiki)
+
+	• What features will you complete?
+	
+		a. Automatically choose short path
+		b. Use the same short path for existing URLs
+		c. Enable users to copy the shorten URL in clipboard
+		d. Mobile version of the web service
+		
+	• Roughly how they will work
+	
+		a. The server will automatically assign the short path if users don't specify any custom alias
+		b. Maintain a universal database in our server to verify if the URL 
+		c. Users could simply click the "copy to clipboard" button and "open in the new window" button. No need to copy-paste.
+		d. Make the web service working in mobile and tablets using media query.
+
+	• What you anticipate main challenge to be
+	
+		a. Some function like "copy to clipboard" might not work in mobile version
+		b. How to random the alias automatically
