@@ -1,20 +1,43 @@
+Proposal Revision - URL Shortening
+
+Monday, November 25, 2013
+2:48 PM
+
 Team members: Shaohan Chen, Rahul Verma, Sophia Lay, Qi Liu(Kiki)
+[Overview]:
+1. Add "sign-in function"
+2. Add "social media sharing" function to "copy to clipboard"
+3. Merge "automatically choose short path" and "same path for existing URLs"
 
-	• What features will you complete?
+
+	â€¢ What features will you complete?
 	
-		a. Automatically choose short path
-		b. Use the same short path for existing URLs
-		c. Enable users to copy the shorten URL in clipboard
-		d. Mobile version of the web service
+		a. Automatically choose short path, Use the same short 
+path for existing URLs
+		b. Enable users to copy the shorten URL in clipboard, 
+sharing it on other social networks
+		c. Mobile version of the web service
+		d. Sign-in function to record user's history
 		
-	• Roughly how they will work
+	â€¢ Roughly how they will work
 	
-		a. The server will automatically assign the short path if users don't specify any custom alias
-		b. Maintain a universal database in our server to verify if the URL 
-		c. Users could simply click the "copy to clipboard" button and "open in the new window" button. No need to copy-paste.
-		d. Make the web service working in mobile and tablets using media query.
+		a. The server will automatically assign the short path if 
+users don't specify any custom alias. Meanwhile, maintain a universal 
+database in our server to verify if the URL 
+		b. Users could simply click the "copy to clipboard" button 
+and "open in the new window" button. No need to copy-paste. Plus, we will 
+enable user to share via social networks like Facebook
+		c. Make the web service working in mobile and tablets 
+using media query.
+		d. User could register and sign-in. We maintain the record 
+of the usernames and passwords. After sign in, user could view his/her 
+shortening history displayed chronologically in the same page.
 
-	• What you anticipate main challenge to be
+	â€¢ What you anticipate main challenge to be
 	
-		a. Some function like "copy to clipboard" might not work in mobile version
+		a. Some function like "copy to clipboard" might not work 
+in mobile version
 		b. How to random the alias automatically
+
+
+
