@@ -26,7 +26,8 @@ def home():
            'home.html',
             title=index_title,
             name=hello_name,
-            display_style='display:none')
+            display_style='display:none',
+            display_history='display:none')
 
 ###
 # Wiki Resource:
