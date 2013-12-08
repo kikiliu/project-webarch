@@ -60,3 +60,12 @@ body {
 .copybtn-xsmall{
   padding: 2px 2px;
 }
+
+.inline{
+  display:inline-block;
+  vertical-align:top;
+}
+
+.history-url{
+  text-decoration:underline;
+}
