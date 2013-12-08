@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!-- saved from url=(0057)http://people.ischool.berkeley.edu/~shaohan/server/shorts -->
 <html lang="en">
 <head>
@@ -8,8 +8,8 @@
     <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Rahul Verma">
     <!--styles -->
 
-    <link href="../static/css/bootstrap.css" rel="stylesheet">
-    <link href="../static/css/style.css" rel="stylesheet">
+    <link href="static/css/bootstrap.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -19,15 +19,19 @@
         <div class="navbar-inner">
             <div class="container">
                 <a class="brand">Petite</a>
+                <!--Sign-in part  
                 <form class="navbar-form pull-right">
                     <input class="span2" type="text" placeholder="Email">
                     <input class="span2" type="password" placeholder="Password">
                     <button type="submit" class="btn">Sign in</button>
                     <a href="">Sign up</a>
                 </form>
-
+                -->
+                <form class="navbar-form pull-right">
+                    <input type="text" class="input-medium search-query" placeholder="keyword of notes">
+                    <button type="submit" class="btn">Search</button>
+                </form>
             </div>
-
         </div>
     </div>
 
@@ -35,7 +39,8 @@
         <form class="form-signin" method="post" action="shorts" onsubmit="return(form_validation());">
             <h2 class="form-signin-heading">Meet Your Petite URL!</h2>
             <input type="url" class="input-block-level" id="url" name="url" placeholder="Please paste your url">
-            <input type="text" class="input-block-level" id="alias" name="alias" placeholder="Give it a name (Optional).">
+            <input type="text" class="input-block-level" id="alias" name="alias" placeholder="Give it a name. (Optional)">
+             <input type="text" class="input-block-level" id="note" name="note" placeholder="Write some descriptions.(Optional)">
             <div class="row-fluid">
                 <div class="offset4">
                     <button class="btn btn-large btn-primary" type="submit" id="submit_button">Submit</button>
@@ -43,27 +48,86 @@
             </div>
         </form>
     </div>
+    
     <div class="container">
         <div class="form-signin" style="{{display_style}}">
             <h2 class="form-signin-heading">Here Is Your Petite URL!</h2>
             <textarea id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}</textarea>
             <!--change id="copybutton" to class="copybutton" to enable copy function for shortened url in history-->
             <input type="button" class="btn btn-small btn-primary copybutton" data-clipboard-target="short_url" value="Copy to clipboard" />
-            <div class="social">
-                <span><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-count="none" data-hashtags="URLshortener"></a></span>
+            <div class="social" style="display:inline-block;vertical-align:top">
+                <span style="display:inline-block;vertical-align:top"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-count="none" data-hashtags="URLshortener"></a></span>
                 <!-- the share button will disappear in 45s if debugging on your local machine. Work fine on server -->
-                <span class="fb-share-button" data-href="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-type="button"></span>
+                <span style="display:inline-block;vertical-align:top" class="fb-share-button" data-href="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-type="button"></span>
             </div>
         </div>
     </div>
 
-    </div>
     <div class="container">
         <div class="form-signin" style="{{display_style}}">
             <h2 class="form-signin-heading">Links You have Recently shortened</h2>
-            <textarea id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}</textarea>
-
-            <input type="button" class="btn btn-small btn-primary copybutton" data-clipboard-target="short_url" value="Copy to clipboard" />
+            <!-- To show the layout, the value below is fixed at this point. 
+            Please modify to make it dynamic after the generation function is done.-->
+            <div class="form-signin form-history" style="{{display_style}}"> 
+                <span class="history-info-title">Google</span></br>
+                <a href="http://people.ischool.berkeley.edu/~kikiliu/server/short/goo" style="text-decoration:underline">http://people.ischool.berkeley.edu/~kikiliu/server/short/goo</a>
+                <input type="button" class="btn btn-small btn-primary copybtn-xsmall copybutton" data-clipboard-target="short_url" value="Copy"/>
+                <span class="history-info">Searching engine</span>
+            </div>      
+            <div class="form-signin form-history" style="{{display_style}}"> 
+                <span class="history-info-title">Google</span></br>
+                <a href="http://people.ischool.berkeley.edu/~kikiliu/server/short/goo" style="text-decoration:underline">http://people.ischool.berkeley.edu/~kikiliu/server/short/goo</a>
+                <input type="button" class="btn btn-small btn-primary copybtn-xsmall copybutton" data-clipboard-target="short_url" value="Copy"/>
+                <span class="history-info">Searching engine</span>
+            </div>   
+            <div class="form-signin form-history" style="{{display_style}}"> 
+                <span class="history-info-title">Google</span></br>
+                <a href="http://people.ischool.berkeley.edu/~kikiliu/server/short/goo" style="text-decoration:underline">http://people.ischool.berkeley.edu/~kikiliu/server/short/goo</a>
+                <input type="button" class="btn btn-small btn-primary copybtn-xsmall copybutton" data-clipboard-target="short_url" value="Copy"/>
+                <span class="history-info">Searching engine</span>
+            </div>  
+            <div class="form-signin form-history" style="{{display_style}}"> 
+                <span class="history-info-title">Long</span></br>
+                <a href="http://people.ischool.berkeley.edu/~kikiliu/server/short/goo" style="text-decoration:underline">http://people.ischool.berkeley.edu/~kikiliu/server/short/goo</a>
+                <input type="button" class="btn btn-small btn-primary copybtn-xsmall copybutton" data-clipboard-target="short_url" value="Copy"></br>
+                <span class="history-info">This long long longe long long long long long long long text is here to test how it looks like.</span>
+            </div>
+            <div class="form-signin form-history" style="{{display_style}}"> 
+                <span class="history-info-title">Google</span></br>
+                <a href="http://people.ischool.berkeley.edu/~kikiliu/server/short/goo" style="text-decoration:underline">http://people.ischool.berkeley.edu/~kikiliu/server/short/goo</a>
+                <input type="button" class="btn btn-small btn-primary copybtn-xsmall copybutton" data-clipboard-target="short_url" value="Copy"/>
+                <span class="history-info">Searching engine</span>
+            </div> 
+            <div class="form-signin form-history" style="{{display_style}}"> 
+                <span class="history-info-title">Google</span></br>
+                <a href="http://people.ischool.berkeley.edu/~kikiliu/server/short/goo" style="text-decoration:underline">http://people.ischool.berkeley.edu/~kikiliu/server/short/goo</a>
+                <input type="button" class="btn btn-small btn-primary copybtn-xsmall copybutton" data-clipboard-target="short_url" value="Copy"/>
+                <span class="history-info">Searching engine</span>
+            </div>
+            <div class="form-signin form-history" style="{{display_style}}"> 
+                <span class="history-info-title">Google</span></br>
+                <a href="http://people.ischool.berkeley.edu/~kikiliu/server/short/goo" style="text-decoration:underline">http://people.ischool.berkeley.edu/~kikiliu/server/short/goo</a>
+                <input type="button" class="btn btn-small btn-primary copybtn-xsmall copybutton" data-clipboard-target="short_url" value="Copy"/>
+                <span class="history-info">Searching engine</span>
+            </div>
+            <div class="form-signin form-history" style="{{display_style}}"> 
+                <span class="history-info-title">Google</span></br>
+                <a href="http://people.ischool.berkeley.edu/~kikiliu/server/short/goo" style="text-decoration:underline">http://people.ischool.berkeley.edu/~kikiliu/server/short/goo</a>
+                <input type="button" class="btn btn-small btn-primary copybtn-xsmall copybutton" data-clipboard-target="short_url" value="Copy"/>
+                <span class="history-info">Searching engine</span>
+            </div>
+            <div class="form-signin form-history" style="{{display_style}}"> 
+                <span class="history-info-title">Google</span></br>
+                <a href="http://people.ischool.berkeley.edu/~kikiliu/server/short/goo" style="text-decoration:underline">http://people.ischool.berkeley.edu/~kikiliu/server/short/goo</a>
+                <input type="button" class="btn btn-small btn-primary copybtn-xsmall copybutton" data-clipboard-target="short_url" value="Copy"/>
+                <span class="history-info">Searching engine</span>
+            </div> 
+            <div class="form-signin form-history" style="{{display_style}}"> 
+                <span class="history-info-title">Google</span></br>
+                <a href="http://people.ischool.berkeley.edu/~kikiliu/server/short/goo" style="text-decoration:underline">http://people.ischool.berkeley.edu/~kikiliu/server/short/goo</a>
+                <input type="button" class="btn btn-small btn-primary copybtn-xsmall copybutton" data-clipboard-target="short_url" value="Copy"/>
+                <span class="history-info">Searching engine</span>
+            </div> 
         </div>
     </div>
     <script type="text/javascript" src="static/js/ZeroClipboard.js"></script>
