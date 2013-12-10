@@ -19,10 +19,10 @@ for (var button in buttons) {
 //Added by Rahul
   $(function() {
     $('#submit_history').bind('click', function() {
-      $.post($SCRIPT_ROOT + '/history', {
-        search_term: $('input[name="comment_word"]').val(),
+      $.post('history', {
+        search_term: $('input[name="comment_word"]').val()
       }, function(data) {
-        $("#shortened_history").text(data.result);
+        $("#shortened_history").html(data.result);
       });
       return false;
     });
