@@ -16,27 +16,20 @@ for (var button in buttons) {
     });
 }
 
-//Added by Rahul
-  $(function() {
-    $('#submit_history').bind('click', function() {
-      $.post('history', {
-        search_term: $('input[name="comment_word"]').val()
-      }, function(data) {
-        $("#shortened_history").html(data.result);
-      });
-      return false;
+$(function() {
+  $('#submit_query').bind('click', function() {
+    $.post('history', {
+      search_term: $('input[name="search_term"]').val()
+    }, function(data) {
+      $("#shortened_history").html(data.result);
     });
+    return false;
   });
-// modification ends here
-
-
-
-
-
+});
 
 function form_validation() {
 
-    var letters = /^[a-zA-Z]+$/;
+    var letters = /^[a-zA-Z0-9]+$/;
     var result = letters.test(document.getElementById('alias').value);
 
     if (document.getElementById('url').value == "") {
@@ -44,26 +37,16 @@ function form_validation() {
         document.getElementById('url').focus();
         return false;
     }
-    if (document.getElementById('alias').value == "") {
-        alert("Please provide a non-empty string as alias");
-        document.getElementById('alias').focus();
-        return false;
-    }
-    if (result == false) {
-        alert("Please provide 'letters only' string for alias");
-        document.getElementById('alias').focus();
-        return false;
-    }
+    //if (document.getElementById('alias').value == "") {
+    //    alert("Please provide a non-empty string as alias");
+    //    document.getElementById('alias').focus();
+    //    return false;
+    //}
+    //if (result == false) {
+    //    alert("Please provide 'letters only' string for alias");
+    //    document.getElementById('alias').focus();
+    //    return false;
+    //}
 
-    return (true);
-
+    return true;
 }
-
-
-
-
-
-
-
-
-
