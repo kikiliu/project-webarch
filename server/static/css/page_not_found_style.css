@@ -1,0 +1,17 @@
+body {
+    padding-top:50px;
+    background-color: #ECDB71;
+    text-align: center;
+}
+
+.logo{
+    font-family: Eurof;
+    font-size: 92px;
+    font-weight: 100;
+    color:#FFFFFF;
+}
+
+a:hover{
+    color:#f7f7f7;
+    text-decoration: none;
+}

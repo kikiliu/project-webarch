@@ -28,7 +28,44 @@ body {
   padding: 7px 9px;
 }
 
+.form-history{
+  max-width: 450px;
+  padding: 1px 10px 1px 10px;
+  margin: 0 auto 8px;
+}
+
+.history-info{
+  font-family: Arial, sans-serif;
+  color: #767676;
+}
+
+.history-info-title{
+  font-weight: bold;
+  color: #666666;
+}
+
+.history-info-url {
+  text-decoration: underline;
+}
+
 #copybutton {
   background-color:#F2B33D;
   background-image: linear-gradient(to bottom, #F2B33D, #F2B33D);
+}
+
+.btn:hover {
+  background-position: 0 -45px;
+}
+
+.copybtn-xsmall{
+  padding: 2px 2px;
+}
+
+.inline{
+  display:inline-block;
+  vertical-align:top;
+}
+
+.history-url{
+  text-decoration:underline;
 }
