@@ -1,16 +1,23 @@
-#!/usr/bin/env python
-
 import shelve
 from subprocess import check_output
 import flask
-from flask import request
+#Added by Rahul
+from flask import request, jsonify
+#modification ends here
 from os import environ
 from random import choice
 from string import ascii_letters, digits
 import datetime
+#Added by Rahul-----------------------------------------------------------------------------------------------
+import time
+from bs4 import BeautifulSoup
+import urllib2
+import re
+#modification ends here---------------------------------------------------------------------------------------
 
 app = flask.Flask(__name__)
 app.debug = True
+user_id = 1
 
 """key is alias, value is URL, db_alias stands for shorten.db ()"""
 db_alias = shelve.open("shorten.db")
@@ -19,11 +26,15 @@ db_alias = shelve.open("shorten.db")
 db_url = shelve.open("url.db")
 
 """key is user id, value is list of tuples, maintaining chronological order???"""
-history = shelve.open("user.db")
+#Name modified by Rahul---------------------------------------------------------------------------------------
+db_history = shelve.open("user.db")
+#modification ends here---------------------------------------------------------------------------------------
 
 
-def maintain_history(datetime, user, title, alias, note): #to Rahul, this is a function to manipulate history section
+def maintain_history(datetime, user, title, alias, note):
+	 #to Rahul, this is a function to manipulate history section
     pass
+
 
 def random_alias():
     while True:        
@@ -46,16 +57,16 @@ def home():
     arguements"""
 
     html_file = flask.render_template(
-           'home.html',
+           'Test.html',
             display_style='display:none',
             display_history='display:none')
     resp = flask.make_response(html_file)
 
     user_id = request.cookies.get('user_id')
     if user_id is None:
-        user_id = generate_user_id()
+        user_id = generate_user_id(11111)
         expiresTime = datetime.datetime.now() + datetime.timedelta(days = 365)
-        resp.set_cookie('user_id', user_id, expires=expireTime, path='/~kikiliu/server')
+        resp.set_cookie('user_id', user_id, expires=expiresTime, path='/')
     return resp
 
 
@@ -75,26 +86,51 @@ def shorts_post():
 
         db_url[url] = alias
         db_alias[alias] = url
+
+#Added by Rahul----------------------------------------------------------------------------------------------
+    cookie_id = request.cookies.get('user_id')
+    soup = BeautifulSoup(urllib2.urlopen(url))
+    title = soup.title.string
+    comments = request.form.get('comment_word')
+    date = time.strftime("%d/%m/%Y %H:%M:%S")
+    tuple_new = (title,url,date,comments)
+    tuple_hist = db_history.get(cookie_id)
+    if tuple_hist == None:
+        db_history[cookie_id] = [tuple_new]
+    else:
+        tuple_hist.append(tuple_new)
+	 db_history[cookie_id] = tuple_hist
+#modification ends here---------------------------------------------------------------------------------------
  
     app.logger.debug('alias = ' + alias + ' url = ' + url)
-    return flask.render_template(
-        'home.html',
-        alias=alias,
-        display_style=''
-        display_history='')
+#    return flask.render_template(							# Rahul: Please uncheck the comments. I had commented them as I was facing some issue running app.py
+#        'home.html',
+#        alias=alias,
+#        display_style=''
+#        display_history='')
 
-
-@app.route('/short/<alias>', methods=['GET'])
-def short_get(alias):
-    """Redirects to original url."""
-    alias = alias.encode('ascii','ignore')
-    destination = db.get(alias)
-    if destination:
-        app.logger.debug("Redirecting to " + destination)
-        return flask.redirect(destination)
-    else:
-        return flask.render_template('page_not_found.html'), 404
+#Added by Rahul----------------------------------------------------------------------------------------------
+@app.route("/history", methods=['PUT', 'POST'])
+def history_get():
+    """Gets the userid from the cookie and the word from the
+    text box and searches the user db for the matching comments. Once it has all
+    the details, it will create a li with title, alias, date, and comments and
+    return as text"""
+    cookie_userid = request.cookies.get('user_id')
+    search_word = request.form.get('comment_word')
+    history_tuple = db_history.get(cookie_userid)
+    data = ''
+    regex = re.compile("|".join(string.lower().split()))
+    history_list = db_history.get(userid)
+    for index,value in enumerate(history_list):
+        if regex.search(value[3].lower()):
+            data += "<li><span class=history_section><a href=" + value[0] + ">" + value[0] + "</a>, " + value[1] + ", " + value[2] + "<span class=comment_section>" + value[3] + "</span></span></li>"
+    if data == '':
+        data = '<li><span class=history_section>No match found</span></li>'
+    return jsonify(result=data)
+#modification ends here---------------------------------------------------------------------------------------
 
 
 if __name__ == "__main__":
-    app.run(port=int(environ['FLASK_PORT']))
+	app.debug = True
+    	app.run(port=int(environ['FLASK_PORT']))
