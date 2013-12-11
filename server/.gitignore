@@ -1,3 +1,5 @@
 .nfs*
 *~
 .DS_Store
+user.db
+url.db
