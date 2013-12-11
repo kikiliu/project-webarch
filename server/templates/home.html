@@ -6,10 +6,12 @@
     <meta charset="utf-8">
     <title>Petite · URL shortener</title>
     <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Rahul Verma">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!--styles -->
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
-</head>
+    <link rel="stylesheet" media="(min-width:660px) and (max-width:870px)" href="tablet.css" type="text/css" />
+    <link rel="stylesheet" media="(max-width:660px)" href="mobile.css" type="text/css" />
 
 <body>
     <!-- id="fb-root" is mandatory -->
@@ -64,7 +66,8 @@
 
     <div class="container">
         <div class="form-signin" id="history_result" style="{{display_style}}">
-            <div id="shortened_history">{{history_list}}</div>            
+            <h2 class="form-signin-heading">Links You have Recently shortened</h2>
+            <div id="shortened_history"></div>
             <!-- To show the layout, the value below is fixed at this point. 
             Please modify to make it dynamic after the generation function is done.-->      
         </div>
