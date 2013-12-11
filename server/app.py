@@ -1,16 +1,80 @@
-#!/usr/bin/env python
-
 import shelve
 from subprocess import check_output
 import flask
-from flask import request
+#Merged with flask module above
+# from flask import request, jsonify
 from os import environ
+from random import choice
+from string import ascii_letters, digits
+import datetime
+import time
+from bs4 import BeautifulSoup
+from urllib2 import urlopen
+import re
 
 app = flask.Flask(__name__)
 app.debug = True
+user_id = 1
 
-db = shelve.open("shorten.db")
+"""key is alias, value is URL, db_alias stands for shorten.db"""
+db_alias = shelve.open("shorten.db")
 
+"""key is url, value is alias"""
+db_url = shelve.open("url.db")
+
+"""key is user id, value is list of tuples used to store the user's history"""
+db_history = shelve.open("user.db")
+
+# def maintain_history(datetime, user, title, alias, note):
+# 	 #to Rahul, this is a function to manipulate history section
+#     pass
+
+
+def random_alias():
+    """ Gets 7 random letter/digit combination
+    The length of alias is adopted from bitly"""
+    while True:        
+        alias = ''.join([choice(ascii_letters + digits) for i in range(7)])
+        if db_alias.get(alias) is None:
+            return alias
+
+def generate_alias(url):
+    """Generates alias for long url and store the alias in db_alias and db_url"""
+    alias = str(db_url.get(url))
+    if alias is None:                                                       # if url in not in current db, try to get user-specified alias or random alias
+        user_set_alias = str(flask.request.form.get('alias'))
+        if user_set_alias and (db_alias.get(alias) is None):                 # if user sets alias AND the alias is not in current db, assgin the alias
+            alias = user_set_alias
+        else:                                                               # if user-set alias is in current db or user doesn't set any alias, assign a random alias
+            alias = random_alias()
+        db_url[url] = alias
+        db_alias[alias] = url
+    return alias
+
+def generate_user_id():
+    if db_history.keys is None:
+        user_id = 0
+    else:
+        current_largest_id = max(db_history.keys())
+        user_id = current_largest_id + 1
+    return user_id
+
+def parse_title(url):
+    """Input: url string; Output:html data string"""
+    response = urlopen(url) 
+    data = response.read()
+    title = BeautifulSoup(data).head.title.get_text()
+    if title is None:
+        title = "Page not found"
+    return title
+
+# class UrlHistory():
+#     """Used to store each url information under each user id"""
+#     def __init__(self, title, alias, date, note):
+#         self.title = title
+#         self.alias = alias
+#         self.date = date
+#         self.note = note        
 
 ###
 # Home Resource:
@@ -20,61 +84,51 @@ db = shelve.open("shorten.db")
 def home():
     """Builds a template based on a GET request, with some default
     arguements"""
-    index_title = request.args.get("title", "i253")
-    hello_name = request.args.get("name", "Jim")
-    return flask.render_template(
+    html_file = flask.render_template(
            'home.html',
-            title=index_title,
-            name=hello_name,
             display_style='display:none',
             display_history='display:none')
+    resp = flask.make_response(html_file)
 
-###
-# Wiki Resource:
-# GET method will redirect to the resource stored by PUT, by default: Wikipedia.org
-# POST/PUT method will update the redirect destination
-###
-
-#@app.route('/wiki', methods=['GET'])
-#def wiki_get():
-#    """Redirects to wikipedia."""
-#    destination = db.get('wiki', 'http://en.wikipedia.org')
-#    app.logger.debug("Redirecting to " + destination)
-#    return flask.redirect(destination)
-
-#@app.route("/wiki", methods=['PUT', 'POST'])
-#def wiki_put():
-#    """Set or update the URL to which this resource redirects to. Uses the
-#    `url` key to set the redirect destination."""
-#    wikipedia = request.form.get('url', 'http://en.wikipedia.org')
-#    db['wiki'] = wikipedia
-#    return "Stored wiki => " + wikipedia
+    user_id = str(flask.request.cookies.get('user_id'))
+    if user_id is None:
+        user_id = generate_user_id()                                  
+        expiresTime = datetime.datetime.now() + datetime.timedelta(days = 365)
+        resp.set_cookie('user_id', user_id, expires=expiresTime, path='/~kikiliu/server') #which path???
+    return resp
 
 
 @app.route("/shorts", methods=['PUT', 'POST'])
 def shorts_post():
     """Set or update the URL to which this resource redirects to. Uses the
     `url` key to set the redirect destination."""
-    url = request.form.get('url', 'http://www.google.com')
-    alias1 = request.form.get('alias', 'google')
-    alias = alias1.encode('ascii','ignore')
-    db[alias] = url
-    print('alias = ' + alias + ' url = ' + url)
-    return flask.render_template(
-        'home.html',
-        alias=alias,
-        display_style='')
+    url = str(flask.request.form.get('url'))
 
-#    return flask.render_template(
-#            'shorts.html',
-#            alias=alias,
-#            url=url)
+    alias = generate_alias(url)
+    title = parse_title(url)
+    user_id = str(flask.request.cookies.get('user_id'))
+    note = str(flask.request.form.get('note'))
+    date = time.strftime("%d/%m/%Y %H:%M:%S")
+
+    tuple_new = (title, alias, date, note)
+    list_hist = db_history.get(user_id)
+    if list_hist is None:
+        db_history[user_id]=list(tuple_new)
+    else:
+        db_history[user_id].append(tuple_new)
+ 
+    app.logger.debug('alias = ' + alias + '; url = ' + url)
+    return flask.render_template(
+       'home.html',
+       alias=alias,
+       display_style='',
+       display_history='')
 
 @app.route('/short/<alias>', methods=['GET'])
-def short_get(alias):
+def short_get(alias):                       #local variable get from url
     """Redirects to original url."""
-    alias = alias.encode('ascii','ignore')
-    destination = db.get(alias)
+    alias = str(alias)
+    destination = db_alias.get(alias)
     if destination:
         app.logger.debug("Redirecting to " + destination)
         return flask.redirect(destination)
@@ -82,37 +136,30 @@ def short_get(alias):
         return flask.render_template('page_not_found.html'), 404
 
 
-###
-# i253 Resource:
-# Information on the i253 class. Can be parameterized with `relationship`,
-# `name`, and `adjective` information
-#
-# TODO: The representation for this resource is broken. Fix it!
-# Set the correct MIME type to be able to view the image in your browser
-##/
-#@app.route('/i253')
-#def i253():
-#    """Returns a PNG image of madlibs text"""
-#    relationship = request.args.get("relationship", "friend")
-#    name = request.args.get("name", "Jim")
-#    adjective = request.args.get("adjective", "fun")
+@app.route("/history", methods=['PUT', 'POST'])
+def history_get():
+    """Gets the user_id from the cookie and the word from the
+    text box, and searches the user db for the matching comments. 
+    Once it has all the details, it will create <li> tags with 
+    title, alias, date, and comments and return as text"""
+    data = ''
 
-#    resp = flask.make_response(
- 
-#           check_output(['convert', '-size', '600x400', 'xc:transparent',
-#                '-frame', '10x30',
-#                '-font', '/usr/share/fonts/liberation/LiberationSerif-BoldItalic.ttf',
-#                '-fill', 'black',
-#                '-pointsize', '32',
-#                '-draw',
-#                  "text 30,60 'My %s %s said i253 was %s'" % (relationship, name, adjective),
-#                '-raise', '30',
-#                'png:-']), 200);
-    # Comment in to set header below
-    # resp.headers['Content-Type'] = '...'
+    user_id = str(flask.request.cookies.get('user_id'))
+    search_word = str(flask.request.form.get('search_term'))
 
-#    return resp
-
+    regex = re.compile("|".join(search_word.lower().split()))
+    history_list = db_history.get(user_id)
+    if history_list:
+        for index, value in enumerate(history_list):
+            if regex.search(value[3].lower()):
+                data += "<div class='form-signin form-history'><span class='history-info-title'>" + value[0]
+                + "</span><br /><span>http://people.ischool.berkeley.edu/~kikiliu/server/short/" + value[1]
+                + "</span><input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/><span class='history-info'>"
+                + value[3] + "</span></div>"
+    if data == "":
+        data = "<div class='form-signin form-history'><span class='history-info-title'>Sorry, no result found.</span>"
+    return flask.jsonify(result=data)
 
 if __name__ == "__main__":
+	# app.debug = True
     app.run(port=int(environ['FLASK_PORT']))
