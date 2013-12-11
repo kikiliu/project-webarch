@@ -20,7 +20,7 @@ $(function(){
 	$('#submit_query').bind('click', function() {
 		$('#shorten_result').css('display','none');
 		$('#history_result').css('display','block');
-		$.post('history', {
+		$.post('search', {
   			search_term: $('input[name="search_term"]').val()
 			}, function(data) {
   			$("#shortened_history").html(data.result);
@@ -28,6 +28,7 @@ $(function(){
 		return false;
 	});
 });
+
 
 function form_validation() {
 
