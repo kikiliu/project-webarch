@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!-- saved from url=(0057)http://people.ischool.berkeley.edu/~shaohan/server/shorts -->
 <html lang="en">
 <head>
@@ -53,18 +53,25 @@
             <h2 class="form-signin-heading">Here Is Your Petite URL!</h2>
             <textarea id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}</textarea>
             <!--change id="copybutton" to class="copybutton" to enable copy function for shortened url in history-->
-            <input type="button" class="btn btn-small btn-primary copybutton" data-clipboard-target="short_url" value="Copy to clipboard" />
-            <div class="social inline">
-                <span class="inline"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-count="none" data-hashtags="URLshortener"></a></span>
-                <!-- the share button will disappear in 45s if debugging on your local machine. Work fine on server -->
-                <span class="fb-share-button inline" data-href="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-type="button"></span>
+            <div id="share_box">
+                <input type="button" class="btn btn-small btn-primary copybutton" data-clipboard-target="short_url" value="Copy to clipboard" />
+                <div class="social inline" style="width: 120px; float:right">
+                    <span class="inline"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-count="none" data-hashtags="URLshortener"></a></span>
+                    <!-- the share button will disappear in 45s if debugging on your local machine. Work fine on server -->
+                    <span class="fb-share-button inline" data-href="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-type="button"></span>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="container">
         <div class="form-signin" style="{{display_style}}">
+            <!--Titles for recent history -->
             <h2 class="form-signin-heading" id="shortened_history">Links You have Recently shortened</h2>
+            <!--Titles for search result -->
+            <h2 class="form-signin-heading" id="search_result">Search Result
+            </h2>
+
             <!-- To show the layout, the value below is fixed at this point. 
             Please modify to make it dynamic after the generation function is done.-->      
         </div>
