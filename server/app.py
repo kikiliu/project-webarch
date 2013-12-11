@@ -33,7 +33,7 @@ db_history = shelve.open("user.db")
 def random_alias():
     """ Gets 7 random letter/digit combination
     The length of alias is adopted from bitly"""
-    while True:        
+    while True:
         alias = ''.join([choice(ascii_letters + digits) for i in range(7)])
         if db_alias.get(alias) is None:
             return alias
@@ -61,7 +61,7 @@ def generate_user_id():
 
 def parse_title(url):
     """Input: url string; Output:html data string"""
-    response = urlopen(url) 
+    response = urlopen(url)
     data = response.read()
     title = BeautifulSoup(data).head.title.get_text()
     if title is None:
@@ -74,7 +74,7 @@ def parse_title(url):
 #         self.title = title
 #         self.alias = alias
 #         self.date = date
-#         self.note = note        
+#         self.note = note
 
 ###
 # Home Resource:
@@ -92,9 +92,9 @@ def home():
 
     user_id = str(flask.request.cookies.get('user_id'))
     if user_id is None:
-        user_id = generate_user_id()                                  
+        user_id = generate_user_id()
         expiresTime = datetime.datetime.now() + datetime.timedelta(days = 365)
-        resp.set_cookie('user_id', user_id, expires=expiresTime, path='/~kikiliu/server') #which path???
+        resp.set_cookie('user_id', user_id, expires=expiresTime, path='/~shaohan/server') #which path???
     return resp
 
 
@@ -116,7 +116,7 @@ def shorts_post():
         db_history[user_id]=list(tuple_new)
     else:
         db_history[user_id].append(tuple_new)
- 
+
     app.logger.debug('alias = ' + alias + '; url = ' + url)
     return flask.render_template(
        'home.html',
@@ -139,8 +139,8 @@ def short_get(alias):                       #local variable get from url
 @app.route("/history", methods=['PUT', 'POST'])
 def history_get():
     """Gets the user_id from the cookie and the word from the
-    text box, and searches the user db for the matching comments. 
-    Once it has all the details, it will create <li> tags with 
+    text box, and searches the user db for the matching comments.
+    Once it has all the details, it will create <li> tags with
     title, alias, date, and comments and return as text"""
     data = ''
 
@@ -153,7 +153,7 @@ def history_get():
         for index, value in enumerate(history_list):
             if regex.search(value[3].lower()):
                 data += "<div class='form-signin form-history'><span class='history-info-title'>" + value[0]
-                + "</span><br /><span>http://people.ischool.berkeley.edu/~kikiliu/server/short/" + value[1]
+                + "</span><br /><span>http://people.ischool.berkeley.edu/~shaohan/server/short/" + value[1]
                 + "</span><input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/><span class='history-info'>"
                 + value[3] + "</span></div>"
     if data == "":
