@@ -1,8 +1,8 @@
 
 //main.js
 var buttons = document.getElementsByClassName("copybutton");
-for (var button in buttons) {
-    var clip = new ZeroClipboard(button, {
+for (var i =0; i < buttons.length; i++) {
+    var clip = new ZeroClipboard(buttons[i], {
         moviePath: "static/js/ZeroClipboard.swf"
     });
     clip.on("load", function (client) {
@@ -16,15 +16,17 @@ for (var button in buttons) {
     });
 }
 
-$(function() {
-  $('#submit_query').bind('click', function() {
-    $.post('history', {
-      search_term: $('input[name="search_term"]').val()
-    }, function(data) {
-      $("#shortened_history").html(data.result);
-    });
-    return false;
-  });
+$(function(){
+	$('#submit_query').bind('click', function() {
+		$('#shorten_result').css('display','none');
+		$('#history_result').css('display','block');
+		$.post('history', {
+  			search_term: $('input[name="search_term"]').val()
+			}, function(data) {
+  			$("#shortened_history").html(data.result);
+		});
+		return false;
+	});
 });
 
 function form_validation() {
