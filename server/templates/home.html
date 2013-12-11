@@ -4,19 +4,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>Petite · URL shortener</title>
     <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Rahul Verma">
-
-    <link rel="stylesheet" href="main.css" type="text/css">
-
     <!--styles -->
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" media="(min-width:660px) and (max-width:870px)" href="tablet.css" type="text/css" />
-    <link rel="stylesheet" media="(max-width:660px)" href="mobile.css" type="text/css" />
-
-</head>
 
 <body>
     <!-- id="fb-root" is mandatory -->
@@ -25,7 +17,7 @@
         <div class="navbar-inner">
             <div class="container">
                 <a class="brand">Petite</a>
-                <!--Sign-in part
+                <!--Sign-in part  
                 <form class="navbar-form pull-right">
                     <input class="span2" type="text" placeholder="Email">
                     <input class="span2" type="password" placeholder="Password">
@@ -54,26 +46,27 @@
             </div>
         </form>
     </div>
-
+    
     <div class="container">
-        <div class="form-signin" style="{{display_style}}">
+        <div class="form-signin" id="shorten_result" style="{{display_style}}">
             <h2 class="form-signin-heading">Here Is Your Petite URL!</h2>
-            <textarea id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~shaohan/server/short/{{alias}}</textarea>
+            <textarea id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}</textarea>
             <!--change id="copybutton" to class="copybutton" to enable copy function for shortened url in history-->
             <input type="button" class="btn btn-small btn-primary copybutton" data-clipboard-target="short_url" value="Copy to clipboard" />
             <div class="social inline">
-                <span class="inline"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://people.ischool.berkeley.edu/~shaohan/server/short/{{alias}}" data-count="none" data-hashtags="URLshortener"></a></span>
+                <span class="inline"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-count="none" data-hashtags="URLshortener"></a></span>
                 <!-- the share button will disappear in 45s if debugging on your local machine. Work fine on server -->
-                <span class="fb-share-button inline" data-href="http://people.ischool.berkeley.edu/~shaohan/server/short/{{alias}}" data-type="button"></span>
+                <span class="fb-share-button inline" data-href="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-type="button"></span>
             </div>
         </div>
     </div>
 
     <div class="container">
-        <div class="form-signin" style="{{display_style}}">
-            <h2 class="form-signin-heading" id="shortened_history">Links You have Recently shortened</h2>
-            <!-- To show the layout, the value below is fixed at this point.
-            Please modify to make it dynamic after the generation function is done.-->
+        <div class="form-signin" id="history_result" style="{{display_style}}">
+            <h2 class="form-signin-heading">Links You have Recently shortened</h2>
+            <div id="shortened_history"></div>
+            <!-- To show the layout, the value below is fixed at this point. 
+            Please modify to make it dynamic after the generation function is done.-->      
         </div>
     </div>
     <script language="JavaScript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
