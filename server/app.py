@@ -17,13 +17,13 @@ app.debug = True
 user_id = 1
 
 """key is alias, value is URL, db_alias stands for shorten.db"""
-db_alias = shelve.open("shorten.db")
+db_alias = shelve.open("shorten.db", writeback=True)
 
 """key is url, value is alias"""
-db_url = shelve.open("url.db")
+db_url = shelve.open("url.db", writeback=True)
 
 """key is user id, value is list of tuples used to store the user's history"""
-db_history = shelve.open("user.db")
+db_history = shelve.open("user.db", writeback=True)
 
 # def maintain_history(datetime, user, title, alias, note):
 # 	 #to Rahul, this is a function to manipulate history section
@@ -40,19 +40,21 @@ def random_alias():
 
 def generate_alias(url):
     """Generates alias for long url and store the alias in db_alias and db_url"""
-    alias = str(db_url.get(url))
+    alias = db_url.get(url)
     if alias is None:                                                       # if url in not in current db, try to get user-specified alias or random alias
-        user_set_alias = str(flask.request.form.get('alias'))
-        if user_set_alias and (db_alias.get(alias) is None):                 # if user sets alias AND the alias is not in current db, assgin the alias
-            alias = user_set_alias
+        user_set_alias = flask.request.form.get('alias')
+        if user_set_alias and (db_alias.get(str(user_set_alias)) is None):                 # if user sets alias AND the alias is not in current db, assgin the alias
+            alias = str(user_set_alias)
         else:                                                               # if user-set alias is in current db or user doesn't set any alias, assign a random alias
             alias = random_alias()
         db_url[url] = alias
         db_alias[alias] = url
+        db_alias.sync()
+        db_url.sync()
     return alias
 
 def generate_user_id():
-    if db_history.keys is None:
+    if len(db_history) == 0:
         user_id = 0
     else:
         current_largest_id = max(db_history.keys())
@@ -90,7 +92,7 @@ def home():
             display_history='display:none')
     resp = flask.make_response(html_file)
 
-    user_id = str(flask.request.cookies.get('user_id'))
+    user_id = flask.request.cookies.get('user_id')
     if user_id is None:
         user_id = generate_user_id()                                  
         expiresTime = datetime.datetime.now() + datetime.timedelta(days = 365)
@@ -113,16 +115,17 @@ def shorts_post():
     tuple_new = (title, alias, date, note)
     list_hist = db_history.get(user_id)
     if list_hist is None:
-        db_history[user_id]=list(tuple_new)
+        db_history[user_id]=[tuple_new]
     else:
         db_history[user_id].append(tuple_new)
+    db_history.sync()
  
     app.logger.debug('alias = ' + alias + '; url = ' + url)
     return flask.render_template(
        'home.html',
        alias=alias,
-       display_style='',
-       display_history='')
+       display_style='block',
+       display_history='block')
 
 @app.route('/short/<alias>', methods=['GET'])
 def short_get(alias):                       #local variable get from url
@@ -150,14 +153,13 @@ def history_get():
     regex = re.compile("|".join(search_word.lower().split()))
     history_list = db_history.get(user_id)
     if history_list:
-        for index, value in enumerate(history_list):
+        for value in history_list:
+            #app.logger.debug(value)
             if regex.search(value[3].lower()):
-                data += "<div class='form-signin form-history'><span class='history-info-title'>" + value[0]
-                + "</span><br /><span>http://people.ischool.berkeley.edu/~kikiliu/server/short/" + value[1]
-                + "</span><input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/><span class='history-info'>"
-                + value[3] + "</span></div>"
+                data += ("<div class='form-signin form-history'><span class='history-info-title'>" + value[0] + "</span><br /><span>http://people.ischool.berkeley.edu/~kikiliu/server/short/" + value[1] + "</span><input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/><span class='history-info'>"
+                + value[3] + "</span></div>")
     if data == "":
-        data = "<div class='form-signin form-history'><span class='history-info-title'>Sorry, no result found.</span>"
+        data = "<div class='form-signin form-history'><span class='history-info-title'>Sorry, no result found.</span></div>"
     return flask.jsonify(result=data)
 
 if __name__ == "__main__":
