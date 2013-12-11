@@ -26,7 +26,7 @@ db_url = shelve.open("url.db", writeback=True)
 db_history = shelve.open("user.db", writeback=True)
 
 # def maintain_history(datetime, user, title, alias, note):
-# 	 #to Rahul, this is a function to manipulate history section
+#          #to Rahul, this is a function to manipulate history section
 #     pass
 
 
@@ -163,5 +163,5 @@ def history_get():
     return flask.jsonify(result=data)
 
 if __name__ == "__main__":
-	# app.debug = True
+        # app.debug = True
     app.run(port=int(environ['FLASK_PORT']))
