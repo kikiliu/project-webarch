@@ -42,6 +42,18 @@ body {
 }
 
 
+/* shortened_history */
+
+#shortened_history h2 {
+  font-size: 1.8em;
+}
+
+#shortened_history input[type="button"]{
+  display: none;
+}
+
+
+
 .form-signin {
   max-width: 500px;
   padding: 19px 29px 29px;
