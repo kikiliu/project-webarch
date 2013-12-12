@@ -17,7 +17,6 @@ body {
      -moz-box-shadow: 0 1px 2px rgba(0,0,0,.05);
           box-shadow: 0 1px 2px rgba(0,0,0,.05);
 }
-
 .form-signin .form-signin-heading,
 .form-signin .checkbox {
   margin-bottom: 10px;
@@ -69,9 +68,4 @@ body {
 
 .history-url{
   text-decoration:underline;
-}
-
-.social .inline {
-  width: 120px;
-  float:right;
 }
