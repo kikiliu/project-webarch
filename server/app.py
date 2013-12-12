@@ -115,7 +115,7 @@ def home():
     if user_id is None:
         user_id = generate_user_id()                                  
         expiresTime = datetime.datetime.now() + datetime.timedelta(days = 365)
-        resp.set_cookie('user_id', user_id, expires=expiresTime, path='/~kikiliu/server')
+        resp.set_cookie('user_id', user_id, expires=expiresTime, path='/~shaohan/server')
     return resp
 
 
