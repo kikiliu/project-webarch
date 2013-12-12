@@ -70,3 +70,8 @@ body {
 .history-url{
   text-decoration:underline;
 }
+
+.social .inline {
+  width: 120px;
+  float:right;
+}

@@ -2,14 +2,24 @@ body {
   background-color: #cdecd8;
 }
 
+#header {
+  max-width: 100%;
+}
+
 #header a {
   margin: 20px 18%;
 }
+
+
+/* search-box */
 
 #search-box {
   margin-right: 7%;
   margin-bottom: 5px
 }
+
+
+/* long_url_box */
 
 #long_url_box h2 {
   font-size: 1.8em;
@@ -18,6 +28,17 @@ body {
 #long_url_box button {
   margin-top: 10px;
   margin-left: 30%;
+}
+
+#share_box input{
+  display: none;
+}
+
+
+/* short_url_box */
+
+#short_url_box h2 {
+  font-size: 1.8em;
 }
 
 
@@ -80,11 +101,19 @@ body {
   padding: 2px 2px;
 }
 
-.inline{
-  display:inline-block;
-  vertical-align:top;
-}
-
 .history-url{
   text-decoration:underline;
+}
+
+.twitter-share-button {
+  margin-left: 5px;
+}
+
+.fb-share-button {
+  margin-left: 65px;
+  margin-top: -25px;
+}
+
+.social .inline {
+  max-height: 10px;
 }
