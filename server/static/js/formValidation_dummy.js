@@ -14,14 +14,13 @@
     });
 
 
-$(function(){
-        $('#submit_query').bind('click', function() {
-                $('#shorten_result').css('display','none');
-                $('#history_result').css('display','block');
-                $.post('search', {
-                          search_term: $('input[name="search_term"]').val()
-                        }, function(data) {
-                          $("#shortened_history").html(data.result);
+$(function() {
+  $('#submit_query').bind('click', function() {
+    $.post('history', {
+      search_term: $('input[name="search_term"]').val()
+    }, function(data) {
+      $("#shortened_history").html(data.result);
+      $("#shortened_history").show();
 //
     var clip2 = new ZeroClipboard($('.copybutton'), {
         moviePath: "static/js/ZeroClipboard.swf"
@@ -36,10 +35,11 @@ $(function(){
         });
     });
 //
-                });
-                return false;
-        });
+    });
+    return false;
+  });
 });
+
 
 
 

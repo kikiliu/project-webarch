@@ -6,10 +6,7 @@
     <meta charset="utf-8">
     <title>Petite URL shortener</title>
     <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Rahul Verma">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!--styles -->
-    <link rel="stylesheet" media="(min-width:660px) and (max-width:870px)" href="tablet.css" type="text/css" />
-    <link rel="stylesheet" media="(max-width:660px)" href="mobile.css" type="text/css" />
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link href="static/css/style.css" rel="stylesheet">
 </head>
@@ -52,7 +49,7 @@
     </div>
     
     <div class="container">
-        <div class="form-signin" id="shorten_result" style="{{display_style}}">
+        <div class="form-signin" style="{{display_style}}">
             <h2 class="form-signin-heading">Here Is Your Petite URL!</h2>
             <textarea id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~rahul.jverma/server/short/{{alias}}</textarea>
             <!--change id="copybutton" to class="copybutton" to enable copy function for shortened url in history-->
@@ -66,9 +63,9 @@
     </div>
 
     <div class="container">
-        <div class="form-signin" id="history_result" style="{{display_style}}">
-            <div id="shortened_history">{{ history_list|safe }}</div>            
-            <!-- To show the layout, the value below is fixed at this point. 
+        <div class="form-signin" id="shortened_history" style="display: none">
+            <h2 class="form-signin-heading">Links You have Recently shortened</h2>
+            <!-- To show the layout, the value below is fixed at this point.
             Please modify to make it dynamic after the generation function is done.-->      
         </div>
     </div>
