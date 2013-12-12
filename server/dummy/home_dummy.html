@@ -5,76 +5,91 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta charset="utf-8">
     <title>Petite · URL shortener</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="author" content="Sophia Lay/ Kiki Liu/ Shaohan Chen/ Rahul Verma">
+
     <!--styles -->
     <link href="static/css/bootstrap.css" rel="stylesheet">
-    <link href="static/css/style.css" rel="stylesheet">
+    <link href="static/css/mobile.css" rel="stylesheet" media="(max-width:660px)" type="text/css" />
+    <link href="static/css/style.css" rel="stylesheet" media="(min-width:870px)" type="text/css">
+
 </head>
 
 <body>
     <!-- id="fb-root" is mandatory -->
     <div id="fb-root"></div>
+    <div id="header">
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="navbar-inner">
             <div class="container">
                 <a class="brand">Petite</a>
-                <!--Sign-in part  
-                <form class="navbar-form pull-right">
-                    <input class="span2" type="text" placeholder="Email">
-                    <input class="span2" type="password" placeholder="Password">
-                    <button type="submit" class="btn">Sign in</button>
-                    <a href="">Sign up</a>
-                </form>
-                -->
-                <form class="navbar-form pull-right">
+                <form id="search-box" class="navbar-form pull-right">
                     <input type="text" class="input-medium search-query" name="search_term" placeholder="keyword of notes">
                     <button type="submit" class="btn" id="submit_query">Search</button>
                 </form>
-            </div>
-        </div>
+            </div><!-- /container -->
+        </div><!-- /navbar-inner -->
     </div>
+</div><!-- header-->
+
 
     <div class="container">
-        <form class="form-signin" method="post" action="shorts" onsubmit="return(form_validation());">
-            <h2 class="form-signin-heading">Meet Your Petite URL!</h2>
-            <input type="url" class="input-block-level" id="url" name="url" placeholder="Please paste your url">
-            <input type="text" class="input-block-level" id="alias" name="alias" placeholder="Give it a name. (Optional)">
-             <input type="text" class="input-block-level" id="note" name="note" placeholder="Write some descriptions.(Optional)">
-            <div class="row-fluid">
-                <div class="offset4">
-                    <button class="btn btn-large btn-primary" type="submit" id="submit_button">Submit</button>
+        <div id="long_url_box">
+            <form class="form-signin" method="post" action="shorts" onsubmit="return(form_validation());">
+                <h2 class="form-signin-heading">Meet Your Petite URL!</h2>
+                <input type="url" class="input-block-level" id="url" name="url" placeholder="Please paste your url">
+                <input type="text" class="input-block-level" id="alias" name="alias" placeholder="Give it a name. (Optional)">
+                <input type="text" class="input-block-level" id="note" name="note" placeholder="Write some descriptions.(Optional)">
+                <div class="row-fluid">
+                    <div class="offset4">
+                        <button class="btn btn-large btn-primary" type="submit" id="submit_button">Submit</button>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
-    
+            </form>
+        </div><!-- /long_url_box -->
+    </div><!-- /container -->
+
+
     <div class="container">
-        <div class="form-signin" style="{{display_style}}">
-            <h2 class="form-signin-heading">Here Is Your Petite URL!</h2>
-            <textarea id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}</textarea>
-            <!--change id="copybutton" to class="copybutton" to enable copy function for shortened url in history-->
-            <div id="share_box">
-                <input type="button" class="btn btn-small btn-primary copybutton" data-clipboard-target="short_url" value="Copy to clipboard" />
-                <div class="social inline" style="width: 120px; float:right">
-                    <span class="inline"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-count="none" data-hashtags="URLshortener"></a></span>
+        <div id="short_url_box">
+            <div class="form-signin" style="{{display_style}}">
+                <h2 class="form-signin-heading">Here Is Your Petite URL!</h2>
+                <textarea id="short_url" class="input-block-level">http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}</textarea>
+                <!--change id="copybutton" to class="copybutton" to enable copy function for shortened url in history-->
+
+                <div id="share_box">
+                    <input type="button" class="btn btn-small btn-primary copybutton" data-clipboard-target="short_url" value="Copy to clipboard" />
+                        <div class="social inline">
+                            <span class="inline"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-count="none" data-hashtags="URLshortener"></a></span>
                     <!-- the share button will disappear in 45s if debugging on your local machine. Work fine on server -->
-                    <span class="fb-share-button inline" data-href="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-type="button"></span>
-                </div>
+                            <span class="fb-share-button inline" data-href="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-type="button"></span>
+                        </div><!-- social inline -->
+                </div><!-- /share_box -->
             </div>
-        </div>
-    </div>
+        </div><!-- short_url_box -->
 
-    <div class="container">
         <div class="form-signin" id="history_result" style="display:block">
-            <div id="shortened_history"><h2 class='form-signin-heading'>Links You Have Recently Shortened (up to 10 links)</h2><div class='form-signin form-history'><span class='history-info-title'>Google</span><br /><span>http://people.ischool.berkeley.edu/~kikiliu/server/short/N9jc6wc</span><input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/><span class='history-info'></span></div></div>            
-            <!-- To show the layout, the value below is fixed at this point. 
-            Please modify to make it dynamic after the generation function is done.-->      
-        </div>
+            <div id="shortened_history">
+                <h2 class='form-signin-heading'>Links You Have Recently Shortened (up to 10 links)</h2>
+                <div class='form-signin form-history'>
+                    <span class='history-info-title'>Google</span><br />
+                    <span>short/N9jc6wc</span>
+                    <input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/>
+                    <span class='history-info'></span>
+                </div><!-- form-signin form-history-->
+            </div><!-- /shortened_history -->
 
-            <!-- To show the layout, the value below is fixed at this point. 
-            Please modify to make it dynamic after the generation function is done.-->      
-        </div>
+            <!-- To show the layout, the value below is fixed at this point.
+            Please modify to make it dynamic after the generation function is done.-->
+        </div><!-- /history_result -->
+
+    </div><!-- /container-->
+
+            <!-- To show the layout, the value below is fixed at this point.
+            Please modify to make it dynamic after the generation function is done.-->
+
     </div>
+
     <script language="JavaScript" type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script type=text/javascript>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
     <script type="text/javascript" src="static/js/ZeroClipboard.js"></script>
