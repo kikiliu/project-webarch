@@ -21,6 +21,7 @@ body {
 .form-signin .checkbox {
   margin-bottom: 10px;
 }
+
 .form-signin input[type="text"],{
   font-size: 16px;
   height: auto;
@@ -31,7 +32,7 @@ body {
 .form-history{
   max-width: 450px;
   padding: 1px 10px 1px 10px;
-  margin: 0 auto 8px;
+  margin: 0 auto 40px;
 }
 
 .history-info{
@@ -48,9 +49,16 @@ body {
   text-decoration: underline;
 }
 
-#copybutton {
+
+.copybutton-clipboard {
+  margin-left: 300px;
+}
+
+.copybutton {
   background-color:#F2B33D;
   background-image: linear-gradient(to bottom, #F2B33D, #F2B33D);
+  margin-top: 25px;
+  float: right;
 }
 
 .btn:hover {
@@ -68,4 +76,21 @@ body {
 
 .history-url{
   text-decoration:underline;
+}
+
+#history_url_only span{
+  max-width: 300px;
+  white-space: pre-wrap;      /* CSS3 */
+  white-space: -moz-pre-wrap; /* Firefox */
+  white-space: -pre-wrap;     /* Opera <7 */
+  white-space: -o-pre-wrap;   /* Opera 7 */
+  word-wrap: break-word;      /* IE */
+
+}
+
+#time_stamp {
+  font-size: 0.8em;
+  color: #ccc;
+  float: left;
+  margin-top: 3px;
 }

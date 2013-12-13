@@ -52,6 +52,21 @@ body {
   display: none;
 }
 
+#history_url_only span{
+  max-width: 300px;
+  white-space: pre-wrap;      /* CSS3 */
+  white-space: -moz-pre-wrap; /* Firefox */
+  white-space: -pre-wrap;     /* Opera <7 */
+  white-space: -o-pre-wrap;   /* Opera 7 */
+  word-wrap: break-word;      /* IE */
+}
+
+#time_stamp {
+  font-size: 0.8em;
+  color: #ccc;
+  float: right;
+}
+
 
 
 .form-signin {
@@ -100,9 +115,14 @@ body {
   text-decoration: underline;
 }
 
-#copybutton {
+.copybutton {
   background-color:#F2B33D;
   background-image: linear-gradient(to bottom, #F2B33D, #F2B33D);
+  margin-left: 5px;
+}
+
+.copybutton-clipboard {
+  margin-left: 300px;
 }
 
 .btn:hover {
