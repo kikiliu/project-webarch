@@ -137,7 +137,7 @@ def shorts_post():
     list_hist = db_history.get(user_id)
 
     if list_hist is None:
-        db_history[user_id]=[tuple_new]
+        db_history[user_id]= [tuple_new]
     else:
         db_history[user_id].append(tuple_new)
     db_history.sync()                                           #sync shelves whenever it is changed
