@@ -11,7 +11,7 @@
     <!--styles -->
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link href="static/css/mobile.css" rel="stylesheet" media="(max-width:660px)" type="text/css" />
-    <link href="static/css/style.css" rel="stylesheet" media="(min-width:870px)" type="text/css">
+    <link href="static/css/style.css" rel="stylesheet" media="(min-width:661px)" type="text/css">
 
 </head>
 <body>
@@ -68,7 +68,7 @@
         </div><!-- short_url_box -->
 
     <div class="container">
-        <div class="form-signin" id="history_result" style="{{display_style}}">
+        <div id="history_result" class="form-signin" style="{{display_style}}">
             <div id="shortened_history">
 
             <!-- Please modify app.py to render history_list based on style below -->
@@ -78,60 +78,56 @@
 
                 <div class='form-signin form-history'>
 
-                    <span class='history-info-title'>Google</span><br />
+                    <div id="url_title">
+                        <span class='history-info-title'>Google</span><br />
+                    </div><!-- /url_title -->
 
-                    <div id="history_url_only">
-                        <span>http://people.ischool.berkeley.edu/~kikiliu/short/Ns9jc6wssssssssssssschfdjksdhfjshdjk</span>
-                        <input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/>
-                    </div><!-- /history_url_only -->
+                    <div class="form-signin form-history">
+                        <div id="history_url_only">
+                            <span>http://people.ischool.berkeley.edu/~kikiliu/short/Ns9jc6wssssssssssssschfdjksdhfjshdjk</span>
+                        </div><!-- /history_url_only -->
+                    </div><!-- /form-signin form-history -->
+
+                    <div id="url_note">
+                        <span class='history-note'>Note Note Note Note Note Note Note Note NoteNote Note</span>
+                    </div><!-- /url_note -->
 
                     <div id="time_stamp">
-                        <span><p>2013/12/12 10:00am</p></span>
+                        <span>2013/12/12 10:00am</span>
+                        <input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/>
                     </div><!-- /time_stamp -->
-
-                    <span class='history-info'></span>
 
                 </div><!-- /form-sign form-history -->
 
 
-                <div class='form-signin form-history'>
-
-                    <span class='history-info-title'>Google</span><br />
-
-                    <div id="history_url_only">
-                        <span>http://people.ischool.berkeley.edu/~kikiliu/short/Ns9jc6wssssssssssssschfdjksdhfjshdjk</span>
-                        <input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/>
-                    </div><!-- /history_url_only -->
-
-                    <div id="time_stamp">
-                        <span><p>2013/12/12 10:00am</p></span>
-                    </div><!-- /time_stamp -->
-
-                    <span class='history-info'></span>
-
-                </div><!-- /form-sign form-history -->
-
 
                 <div class='form-signin form-history'>
 
-                    <span class='history-info-title'>Google</span><br />
+                    <div id="url_title">
+                        <span class='history-info-title'>Google</span><br />
+                    </div><!-- /url_title -->
 
-                    <div id="history_url_only">
-                        <span>http://people.ischool.berkeley.edu/~kikiliu/short/Ns9jc6wssssssssssssschfdjksdhfjshdjk</span>
-                        <input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/>
-                    </div><!-- /history_url_only -->
+                    <div class="form-signin form-history">
+                        <div id="history_url_only">
+                            <span>http://people.ischool.berkeley.edu/~kikiliu/short/Ns9jc6wssssssssssssschfdjksdhfjshdjk</span>
+                        </div><!-- /history_url_only -->
+                    </div><!-- /form-signin form-history -->
+
+                    <div id="url_note">
+                        <span class='history-note'>Note Note Note Note Note Note Note Note NoteNote Note Note Note Note Note Note Note Note Note NoteNote Note</span>
+                    </div><!-- /url_note -->
 
                     <div id="time_stamp">
-                        <span><p>2013/12/12 10:00am</p></span>
+                        <span>2013/12/12 10:00am</span>
+                        <input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/>
                     </div><!-- /time_stamp -->
-
-                    <span class='history-info'></span>
 
                 </div><!-- /form-sign form-history -->
 
 
 
             </div><!-- /shortened_history -->
+
         </div><!-- /history_result -->
 
     </div><!-- /container-->

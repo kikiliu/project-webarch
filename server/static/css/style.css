@@ -40,7 +40,7 @@ body {
   color: #767676;
 }
 
-.history-info-title{
+.history-note{
   font-weight: bold;
   color: #666666;
 }
@@ -51,14 +51,12 @@ body {
 
 
 .copybutton-clipboard {
-  margin-left: 300px;
+  margin-left: 290px;
 }
 
 .copybutton {
   background-color:#F2B33D;
   background-image: linear-gradient(to bottom, #F2B33D, #F2B33D);
-  margin-top: 25px;
-  float: right;
 }
 
 .btn:hover {
@@ -78,6 +76,15 @@ body {
   text-decoration:underline;
 }
 
+#url_title {
+  margin: 5px 0;
+  font-size: 1em;
+}
+
+#url_note {
+  margin-top: -30px;
+}
+
 #history_url_only span{
   max-width: 300px;
   white-space: pre-wrap;      /* CSS3 */
@@ -94,3 +101,9 @@ body {
   float: left;
   margin-top: 3px;
 }
+
+#time_stamp input[type=button] {
+  margin-top: 5px;
+  margin-left: 310px;
+}
+
