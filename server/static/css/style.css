@@ -41,7 +41,7 @@ body {
 }
 
 .history-note{
-  font-weight: bold;
+  font-style: italic;
   color: #666666;
 }
 
@@ -107,3 +107,6 @@ body {
   margin-left: 310px;
 }
 
+.highlight {
+  font-weight: bolder;
+}

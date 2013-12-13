@@ -178,7 +178,7 @@ def search_get():
     user_id = str(flask.request.cookies.get('user_id'))
     search_word = str(flask.request.form.get('search_term'))
 
-    regex = re.compile("|".join(search_word.lower().split()))
+    regex = re.compile("|".join(search_word.lower().split()), flags=re.IGNORECASE)
     history_list = db_history.get(user_id)
     if history_list:
         for value in history_list:
