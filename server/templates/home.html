@@ -11,7 +11,7 @@
     <!--styles -->
     <link href="static/css/bootstrap.css" rel="stylesheet">
     <link href="static/css/mobile.css" rel="stylesheet" media="(max-width:660px)" type="text/css" />
-    <link href="static/css/style.css" rel="stylesheet" media="(min-width:870px)" type="text/css">
+    <link href="static/css/style.css" rel="stylesheet" media="(min-width:661px)" type="text/css">
 
 </head>
 <body>
@@ -61,7 +61,7 @@
                             <span class="inline"><a href="https://twitter.com/share" class="twitter-share-button" data-url="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-count="none" data-hashtags="URLshortener"></a></span>
                     <!-- the share button will disappear in 45s if debugging on your local machine. Work fine on server -->
                             <span class="fb-share-button inline" data-href="http://people.ischool.berkeley.edu/~kikiliu/server/short/{{alias}}" data-type="button"></span>
-                            <input type="button" class="btn btn-small btn-primary copybutton-clipboard" data-clipboard-target="short_url" value="Copy to clipboard" />
+                            <input type="button" class="btn btn-small btn-primary copybutton copybutton-clipboard" data-clipboard-target="short_url" value="Copy to clipboard" />
                         </div><!-- social inline -->
                 </div><!-- /share_box -->
             </div>
@@ -69,69 +69,8 @@
 
     <div class="container">
         <div class="form-signin" id="history_result" style="{{display_style}}">
-            <div id="shortened_history">
-
-            <!-- Please modify app.py to render history_list based on style below -->
-            <!-- {{ history_list|safe }}   -->
-
-                <h2 class='form-signin-heading'>Links You Have Recently Shortened (up to 10 links)</h2>
-
-                <div class='form-signin form-history'>
-
-                    <span class='history-info-title'>Google</span><br />
-
-                    <div id="history_url_only">
-                        <span>http://people.ischool.berkeley.edu/~kikiliu/short/Ns9jc6wssssssssssssschfdjksdhfjshdjk</span>
-                        <input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/>
-                    </div><!-- /history_url_only -->
-
-                    <div id="time_stamp">
-                        <span><p>2013/12/12 10:00am</p></span>
-                    </div><!-- /time_stamp -->
-
-                    <span class='history-info'></span>
-
-                </div><!-- /form-sign form-history -->
-
-
-                <div class='form-signin form-history'>
-
-                    <span class='history-info-title'>Google</span><br />
-
-                    <div id="history_url_only">
-                        <span>http://people.ischool.berkeley.edu/~kikiliu/short/Ns9jc6wssssssssssssschfdjksdhfjshdjk</span>
-                        <input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/>
-                    </div><!-- /history_url_only -->
-
-                    <div id="time_stamp">
-                        <span><p>2013/12/12 10:00am</p></span>
-                    </div><!-- /time_stamp -->
-
-                    <span class='history-info'></span>
-
-                </div><!-- /form-sign form-history -->
-
-
-                <div class='form-signin form-history'>
-
-                    <span class='history-info-title'>Google</span><br />
-
-                    <div id="history_url_only">
-                        <span>http://people.ischool.berkeley.edu/~kikiliu/short/Ns9jc6wssssssssssssschfdjksdhfjshdjk</span>
-                        <input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/>
-                    </div><!-- /history_url_only -->
-
-                    <div id="time_stamp">
-                        <span><p>2013/12/12 10:00am</p></span>
-                    </div><!-- /time_stamp -->
-
-                    <span class='history-info'></span>
-
-                </div><!-- /form-sign form-history -->
-
-
-
-            </div><!-- /shortened_history -->
+            <div id="shortened_history">{{ history_list|safe }}</div>
+            <!-- /shortened_history -->
         </div><!-- /history_result -->
 
     </div><!-- /container-->

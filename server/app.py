@@ -64,10 +64,10 @@ def generate_user_id():
 
 def parse_title(url):
     """Input: url string; Output:html data string"""
-    response = urlopen(url) 
-    data = response.read()
-    title = BeautifulSoup(data).head.title.get_text()
-    if title is None:
+ 
+    soup = BeautifulSoup(urlopen(url))
+    title = str(soup.title.string)
+    if title == "":
         title = "Page not found"
     return title
 
@@ -87,12 +87,14 @@ def get_history(user_id):
     history_list = db_history.get(user_id)
 
     if history_list:
-        for value in history_list[-1::-1]:
+        list_length = len(history_list)
+        for value in history_list[-1:-min(list_length,10)-1:-1]:
             app.logger.debug(value)
-            history_result += ("<div class='form-signin form-history'><span class='history-info-title'>" + value[0] 
-                + "</span><br /><span>http://people.ischool.berkeley.edu/~kikiliu/server/short/" + value[1] 
-                + "</span><input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/><span class='history-info'>"
-                + value[3] + "</span></div>")
+            history_result += ("<div class='form-signin form-history'><div id='url_title'><span class='history-info-title'>" + value[0] 
+                    + "</span><br /></div><div class='form-signin form-history'><div id='history_url_only'><span>http://people.ischool.berkeley.edu/~kikiliu/short/" + value[1] 
+                    + "</span></div></div><div id='url_note'><span class='history-note'>"
+                    + value[3] + "</span></div><div id='time_stamp'><span>" + value[2] + "</span><input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-text= 'http://people.ischool.berkeley.edu/~kikiliu/server/short/"
+                    + value[1] + "' value='Copy'/></div></div>")
     if history_result == "":
         data = history_title + "<div class='form-signin form-history'><span class='history-info-title'>Sorry, no you don't have history.</span></div>"
     else:
@@ -161,6 +163,9 @@ def short_get(alias):                                           #local variable 
     else:
         return flask.render_template('page_not_found.html'), 404
 
+def highlight_note(match_obj):  
+
+    return "<span class='highlight'>" + match_obj.group(0) + "</span>"
 
 @app.route("/search", methods=['PUT', 'POST'])
 def search_get():
@@ -179,10 +184,13 @@ def search_get():
         for value in history_list:
             app.logger.debug(value)
             if regex.search(value[3].lower()):
-                search_result += ("<div class='form-signin form-history'><span class='history-info-title'>" + value[0] 
-                    + "</span><br /><span>http://people.ischool.berkeley.edu/~kikiliu/server/short/" + value[1] 
-                    + "</span><input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-target='short_url' value='Copy'/><span class='history-info'>"
-                    + value[3] + "</span></div>")
+                highlight_text = regex.sub(highlight_note, value[3])
+                search_result += ("<div class='form-signin form-history'><div id='url_title'><span class='history-info-title'>" + value[0] 
+                    + "</span><br /></div><div class='form-signin form-history'><div id='history_url_only'><span>http://people.ischool.berkeley.edu/~kikiliu/short/" + value[1] 
+                    + "</span></div></div><div id='url_note'><span class='history-note'>"
+                    + highlight_text + "</span></div><div id='time_stamp'><span>" + value[2] + "</span><input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-text= 'http://people.ischool.berkeley.edu/~kikiliu/server/short/"
+                    + value[1] + "' value='Copy'/></div></div>")
+                # <input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-text=" + "http://people.ischool.berkeley.edu/~kikiliu/server/short/" + value[1] + " value='Copy'/>
     if search_result == "":
         data = search_title + "<div class='form-signin form-history'><span class='history-info-title'>Sorry, no result found.</span></div>"
     else:
