@@ -115,6 +115,10 @@ body {
   text-decoration: underline;
 }
 
+#url_note {
+  margin-top: -30px;
+}
+
 .copybutton {
   background-color:#F2B33D;
   background-image: linear-gradient(to bottom, #F2B33D, #F2B33D);
