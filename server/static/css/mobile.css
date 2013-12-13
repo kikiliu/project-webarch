@@ -59,6 +59,8 @@ body {
   white-space: -pre-wrap;     /* Opera <7 */
   white-space: -o-pre-wrap;   /* Opera 7 */
   word-wrap: break-word;      /* IE */
+  border: 1px;
+  padding: 3px;
 }
 
 #time_stamp {
@@ -66,8 +68,6 @@ body {
   color: #ccc;
   float: right;
 }
-
-
 
 .form-signin {
   max-width: 500px;
@@ -98,7 +98,7 @@ body {
 .form-history{
   max-width: 450px;
   padding: 1px 10px 1px 10px;
-  margin: 0 auto 8px;
+  margin: 0 auto 40px;
 }
 
 .history-info{
