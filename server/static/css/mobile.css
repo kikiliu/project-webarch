@@ -126,7 +126,7 @@ body {
 }
 
 .copybutton-clipboard {
-  margin-left: 300px;
+  /*margin-left: 300px;*/
 }
 
 .btn:hover {
@@ -146,10 +146,11 @@ body {
 }
 
 .fb-share-button {
-  margin-left: 65px;
-  margin-top: -25px;
+/*  margin-left: 65px;
+  margin-top: -25px;*/
 }
 
 .social .inline {
   max-height: 10px;
+  vertical-align: top;
 }

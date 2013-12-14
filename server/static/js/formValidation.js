@@ -18,7 +18,7 @@ for (var i =0; i < buttons.length; i++) {
 
 $(function(){
         $('#submit_query').bind('click', function() {
-                $('#shorten_result').css('display','none');
+                $('#short_url_box').css('display','none');
                 $('#history_result').css('display','block');
                 // window.location = $BASE_URL +"#shorten_result";
                 $.post('search', {

@@ -59,6 +59,7 @@ def generate_user_id():
         user_id = '0'
     else:
         current_largest_id = max(db_history.keys())
+        app.logger.debug("user id is" + current_largest_id)
         user_id = int(current_largest_id) + 1
     return str(user_id)
 
@@ -66,9 +67,12 @@ def parse_title(url):
     """Input: url string; Output:html data string"""
  
     soup = BeautifulSoup(urlopen(url))
-    title = str(soup.title.string)
-    if title == "":
+    title = soup.head.title
+
+    if title is None:
         title = "Page not found"
+    else:
+        title = title.get_text()
     return title
 
 # class UrlHistory():
@@ -96,7 +100,7 @@ def get_history(user_id):
                     + value[3] + "</span></div><div id='time_stamp'><span>" + value[2] + "</span><input type='button' class='btn btn-small btn-primary copybtn-xsmall copybutton' data-clipboard-text= 'http://people.ischool.berkeley.edu/~kikiliu/server/short/"
                     + value[1] + "' value='Copy'/></div></div>")
     if history_result == "":
-        data = history_title + "<div class='form-signin form-history'><span class='history-info-title'>Sorry, no you don't have history.</span></div>"
+        data = history_title + "<div class='form-signin form-history'><span class='history-info-title'>Sorry, no you don't have history yet.</span></div>"
     else:
         data = history_title + history_result
     return data
@@ -125,7 +129,11 @@ def home():
 def shorts_post():
     """Set or update the URL to which this resource redirects to. Uses the
     `url` key to set the redirect destination."""
-    user_id = str(flask.request.cookies.get('user_id'))
+    user_id = flask.request.cookies.get('user_id')
+    if user_id is None:
+        user_id = generate_user_id()
+    user_id = str(user_id)
+    app.logger.debug("Current user id is" + user_id)
     history_data = get_history(user_id)
 
     url = str(flask.request.form.get('url'))
@@ -146,11 +154,15 @@ def shorts_post():
  
     app.logger.debug('alias = ' + alias + '; url = ' + url)
 
-    return flask.render_template(
-       'home.html',
-       alias=alias,
-       display_style='display:block',
-       history_list = history_data)
+    html_file = flask.render_template(
+                'home.html',
+                alias=alias,
+                display_style='display:block',
+                history_list = history_data)
+    resp = flask.make_response(html_file)
+    expiresTime = datetime.datetime.now() + datetime.timedelta(days = 365)
+    resp.set_cookie('user_id', user_id, expires=expiresTime, path='/~kikiliu/server')
+    return resp
 
 @app.route('/short/<alias>', methods=['GET'])
 def short_get(alias):                                           #local variable get from url
